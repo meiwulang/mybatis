@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!--加载属性文件 -->
+	<properties resource="custom/mybatis-config.properties" />
+	<!--当不写该节点时，请将对应的驱动包配置到环境变量里 -->
+    <!-- <classPathEntry -->
+	<!-- location="D:\m2\repository\mysql\mysql-connector-java\5.1.33\mysql-connector-java-5.1.33.jar"/> -->
+	<context id="context1">
+		<!-- 此属性表示是否和原xml合并,false表示覆盖 -->
+		<property name="mergeable" value="false" />
+		<!-- 实现自定义的代码生成器plugin -->
+		<plugin type="com.mybatis.generator.CustomPlugin" />
+		<!-- generate entity时，生成serialVersionUID -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<commentGenerator type="com.mybatis.generator.CustomCommentGenerator">
+			<property name="mergeable" value="false" />
+			<property name="suppressDate" value="fasle" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 数据库连接URL，用户名，密码 -->
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}" />
+		<!-- 生成模型的包名和位置 targetPackage是包名 ，targetProject 逻辑根目录 -->
+		<javaModelGenerator targetPackage="${modelTargetPackage}"
+			targetProject="${targetProject}" />
+		<!-- 映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="${mapperTargetPackage}"
+			targetProject="${resourcesPath}" />
+		<!-- DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="${daoTargetPackage}"
+			targetProject="${targetProject}" type="XMLMAPPER" />
+		<!-- 要生成哪些表 要生成全部的表 tableName="%" 自动生成的方法不符合个人习惯，全部干掉 需要修改源码 -->
+		<table tableName="${tableName}" enableSelectByExample="false"
+			enableDeleteByExample="false" enableCountByExample="false"
+			enableUpdateByExample="false" selectByExampleQueryId="false"
+			enableInsert="false" enableSelectByPrimaryKey="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			>
+			<!-- 实体父类 -->
+			<property name="rootClass" value="${superClass}" />
+		</table>
+	</context>
+</generatorConfiguration>
